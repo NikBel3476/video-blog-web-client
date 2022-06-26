@@ -2,6 +2,11 @@
   "name": "video-blog-web-client",
   "version": "0.1.0",
   "private": true,
+  "description": "video-blog-web-client",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikBel3476/video-blog-web-client.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
