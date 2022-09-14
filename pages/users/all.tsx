@@ -1,7 +1,8 @@
 import { fetchUsers } from '../../lib/http';
 import { Card } from 'react-bootstrap';
+import { NextPage } from 'next';
 
-export default function UsersList({ users, error }) {
+const UsersList: NextPage<{ users; error }> = ({ users, error }) => {
 	if (error) {
 		return (
 			<div>
@@ -18,7 +19,7 @@ export default function UsersList({ users, error }) {
 			</Card.Body>
 		</Card>
 	));
-}
+};
 
 export async function getServerSideProps() {
 	try {

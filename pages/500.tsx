@@ -1,0 +1,5 @@
+import { NextPage } from 'next';
+
+const Custom500: NextPage = () => {
+	return <h1>Internal error</h1>;
+};
