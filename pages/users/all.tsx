@@ -2,7 +2,8 @@ import { fetchUsers } from '../../lib/http';
 import { Card } from 'react-bootstrap';
 import { NextPage } from 'next';
 
-const UsersList: NextPage<{ users; error }> = ({ users, error }) => {
+// TODO: Add types
+const UsersList: NextPage<{ users: any; error: any }> = ({ users, error }) => {
 	if (error) {
 		return (
 			<div>
