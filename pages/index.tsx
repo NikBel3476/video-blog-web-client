@@ -9,3 +9,5 @@ const Home: NextPage = () => {
 		</h1>
 	);
 };
+
+export default Home;
