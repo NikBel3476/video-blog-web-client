@@ -13,7 +13,7 @@ const UsersList: NextPage<{ users: any; error: any }> = ({ users, error }) => {
 	}
 
 	return users.map((user) => (
-		<Card>
+		<Card key={user.Id}>
 			<Card.Body>
 				<Card.Title>{user.name}</Card.Title>
 				<Card.Subtitle>{user.login}</Card.Subtitle>
