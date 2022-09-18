@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import InputText from '../../components/inputs/InputText';
 import RegistrationForm from '../../components/forms/RegistrationForm/RegistrationForm';
 
 const RegistrationPage: NextPage = () => {
