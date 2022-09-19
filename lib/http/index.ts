@@ -6,9 +6,14 @@ const $API = axios.create({
 
 export const fetchUsers = async () => await $API.get('users');
 
-export const registration = async (email, password) => {
+export const registration = async (data: {
+	userName: string;
+	email: string;
+	password: string;
+	confirmPassword: string;
+}) => {
 	try {
-		return await $API.post('account/registration', { email, password });
+		return await $API.post('account/registration', data);
 	} catch (e) {
 		console.log(e);
 	}

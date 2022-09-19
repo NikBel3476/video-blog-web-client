@@ -6,8 +6,15 @@ import { registration } from '../../../lib/http';
 type RegistrationFormProps = {};
 
 const RegistrationForm: FC<RegistrationFormProps> = () => {
+	// TODO: remake with useReducer
+	const [userName, setUserName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
+	const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+	const handleUserNameChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+		setUserName(event.target.value);
+	};
 
 	const handleEmailChange: ChangeEventHandler<HTMLInputElement> = (event) => {
 		setEmail(event.target.value);
@@ -17,9 +24,13 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 		setPassword(event.target.value);
 	};
 
+	const handlePasswordConfirmChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+		setConfirmPassword(event.target.value);
+	};
+
 	const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
 		event.preventDefault();
-		const result = await registration(email, password);
+		const result = await registration({ userName, email, password, confirmPassword });
 		console.log(result);
 	};
 
@@ -55,6 +66,22 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 						<input type="hidden" name="remember" defaultValue="true" />
 						<div className="-space-y-px rounded-md shadow-sm">
 							<div>
+								<label htmlFor="user-name" className="sr-only">
+									Email address
+								</label>
+								<input
+									id="user-name"
+									name="user-name"
+									type="text"
+									autoComplete="text"
+									required
+									className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+									placeholder="Email address"
+									value={userName}
+									onChange={handleUserNameChange}
+								/>
+							</div>
+							<div>
 								<label htmlFor="email-address" className="sr-only">
 									Email address
 								</label>
@@ -64,7 +91,7 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 									type="email"
 									autoComplete="email"
 									required
-									className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+									className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 									placeholder="Email address"
 									value={email}
 									onChange={handleEmailChange}
@@ -80,10 +107,26 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 									type="password"
 									autoComplete="current-password"
 									required
-									className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+									className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 									placeholder="Password"
 									value={password}
 									onChange={handlePasswordChange}
+								/>
+							</div>
+							<div>
+								<label htmlFor="password-confirm" className="sr-only">
+									Password
+								</label>
+								<input
+									id="password-confirm"
+									name="password-confirm"
+									type="password"
+									autoComplete="current-password"
+									required
+									className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+									placeholder="Password confirm"
+									value={confirmPassword}
+									onChange={handlePasswordConfirmChange}
 								/>
 							</div>
 						</div>
