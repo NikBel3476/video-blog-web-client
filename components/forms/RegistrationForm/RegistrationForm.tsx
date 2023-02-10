@@ -6,6 +6,7 @@ import {
 	initialState,
 	registrationFormReducer,
 } from '../../../store/reducers/registrationFormReducer';
+import Image from 'next/image';
 
 type RegistrationFormProps = {};
 
