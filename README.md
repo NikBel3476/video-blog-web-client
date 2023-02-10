@@ -1,5 +1,8 @@
 ## Getting Started
 
+### Prerequisites
+1. [Node.js 18.x.x or above](https://nodejs.org/en/)
+
 Before run the app, you need to install the dependencies:
 
 ```bash
@@ -17,4 +20,4 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.  
-If you already have somthing on port 3000, see the cmd output to find the correct port.
+If you already have somthing on port 3000, see the terminal output to find the correct port.
