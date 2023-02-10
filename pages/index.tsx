@@ -2,20 +2,21 @@ import type { NextPage } from 'next';
 import { Badge } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import useSWR, { Fetcher } from 'swr';
+
+const fetcher: Fetcher<any, string> = (url) => fetch(url).then((res) => res.json());
 
 const Home: NextPage = () => {
-	const [data, setData] = useState('');
-
-	useEffect(() => {
-		fetch('/api/Account/getData').then((res) => {
-			res.text().then((data) => {
-				setData(data);
-			});
-		});
-	}, []);
+	const { data, error, isLoading } = useSWR<{ message: string }, Error>(
+		'/api/Account/getData',
+		fetcher
+	);
 
 	return (
-		<h1>
+		<main>
+			{isLoading && <div>Loading...</div>}
+			{error && <div>Error: {error.message}</div>}
+			{data && <div>{data.message}</div>}
 			<Badge bg="secondary">Badge</Badge>
 			<nav className="flex justify-start">
 				<ul className="rounded-lg border border-gray-200 w-96 text-gray-900">
@@ -30,7 +31,7 @@ const Home: NextPage = () => {
 					</li>
 				</ul>
 			</nav>
-		</h1>
+		</main>
 	);
 };
 
