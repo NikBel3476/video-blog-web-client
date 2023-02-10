@@ -10,6 +10,16 @@ const nextConfig = {
 			},
 		];
 	},
+	images: {
+		dangerouslyAllowSVG: true,
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'tailwindui.com',
+				pathname: '/img/**/*.{jpg,png,svg}',
+			},
+		],
+	},
 };
 
 module.exports = nextConfig;
