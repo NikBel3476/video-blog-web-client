@@ -1,7 +1,11 @@
-import { ChangeEventHandler, FC, FormEventHandler, useState } from 'react';
+import { ChangeEventHandler, FC, FormEventHandler, useReducer, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import styles from './RegistrationForm.module.css';
 import { registration } from '../../../lib/http';
+import {
+	initialState,
+	registrationFormReducer,
+} from '../../../store/reducers/registrationFormReducer';
 
 type RegistrationFormProps = {};
 
@@ -11,6 +15,8 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+	const [formState, dispatch] = useReducer(registrationFormReducer, initialState);
 
 	const handleUserNameChange: ChangeEventHandler<HTMLInputElement> = (event) => {
 		setUserName(event.target.value);
