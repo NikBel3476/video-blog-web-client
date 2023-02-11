@@ -9,7 +9,7 @@ export const initialState: RegistrationFormState = {
 
 export const registrationFormReducer = (
 	state: RegistrationFormState,
-	action: { type: RegistrationFormActionType; payload: {} }
+	action: { type: RegistrationFormActionType; payload: string }
 ) => {
 	switch (action.type) {
 		case RegistrationFormActionType.SET_USER_NAME:

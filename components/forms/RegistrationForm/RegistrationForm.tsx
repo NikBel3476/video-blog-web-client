@@ -1,43 +1,39 @@
-import { ChangeEventHandler, FC, FormEventHandler, useReducer, useState } from 'react';
+import { ChangeEventHandler, FC, FormEventHandler, useReducer } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
-import styles from './RegistrationForm.module.css';
 import { registration } from '../../../lib/http';
 import {
 	initialState,
 	registrationFormReducer,
 } from '../../../store/reducers/registrationFormReducer';
-import Image from 'next/image';
+import { RegistrationFormActionType } from '../../../store/types/registrationForm';
 
 type RegistrationFormProps = {};
 
 const RegistrationForm: FC<RegistrationFormProps> = () => {
-	// TODO: remake with useReducer
-	const [userName, setUserName] = useState<string>('');
-	const [email, setEmail] = useState<string>('');
-	const [password, setPassword] = useState<string>('');
-	const [confirmPassword, setConfirmPassword] = useState<string>('');
-
 	const [formState, dispatch] = useReducer(registrationFormReducer, initialState);
 
 	const handleUserNameChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-		setUserName(event.target.value);
+		dispatch({ type: RegistrationFormActionType.SET_USER_NAME, payload: event.target.value });
 	};
 
 	const handleEmailChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-		setEmail(event.target.value);
+		dispatch({ type: RegistrationFormActionType.SET_EMAIL, payload: event.target.value });
 	};
 
 	const handlePasswordChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-		setPassword(event.target.value);
+		dispatch({ type: RegistrationFormActionType.SET_PASSWORD, payload: event.target.value });
 	};
 
 	const handlePasswordConfirmChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-		setConfirmPassword(event.target.value);
+		dispatch({
+			type: RegistrationFormActionType.SET_CONFIRM_PASSWORD,
+			payload: event.target.value,
+		});
 	};
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
 		event.preventDefault();
-		const result = await registration({ userName, email, password, confirmPassword });
+		const result = await registration(formState);
 		console.log(result);
 	};
 
@@ -85,8 +81,8 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 									autoComplete="text"
 									required
 									className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-									placeholder="Email address"
-									value={userName}
+									placeholder="User name"
+									value={formState.userName}
 									onChange={handleUserNameChange}
 								/>
 							</div>
@@ -102,7 +98,7 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 									required
 									className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 									placeholder="Email address"
-									value={email}
+									value={formState.email}
 									onChange={handleEmailChange}
 								/>
 							</div>
@@ -118,7 +114,7 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 									required
 									className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 									placeholder="Password"
-									value={password}
+									value={formState.password}
 									onChange={handlePasswordChange}
 								/>
 							</div>
@@ -134,7 +130,7 @@ const RegistrationForm: FC<RegistrationFormProps> = () => {
 									required
 									className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 									placeholder="Password confirm"
-									value={confirmPassword}
+									value={formState.confirmPassword}
 									onChange={handlePasswordConfirmChange}
 								/>
 							</div>
